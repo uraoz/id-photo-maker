@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' blob: data:; style-src 'self' 'unsafe-inline'; connect-src 'self'; worker-src 'self'">
+<title>ID Photo Maker - Passport Photo</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<meta name="theme-color" content="#1f5fbf">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<header>
+  <h1 data-i18n="title">ID Photo Maker</h1>
+  <label class="lang"><span data-i18n="language">Language</span>
+    <select id="lang"><option value="en">English</option><option value="ja">日本語</option></select>
+  </label>
+</header>
+<p class="privacy" data-i18n="privacy">Works fully offline. Your photo never leaves this device.</p>
+
+<main>
+  <section id="dropzone" tabindex="0" role="button" aria-label="Select photo">
+    <p data-i18n="drop">Drag &amp; drop a photo here, or</p>
+    <button type="button" id="pick" data-i18n="choose">Choose photo</button>
+    <input type="file" id="file" accept="image/*" hidden>
+  </section>
+
+  <div id="editor" hidden>
+    <section class="panel">
+      <h2 data-i18n="step1">1. Crop</h2>
+      <label><span data-i18n="preset">Size</span>
+        <select id="preset"></select>
+      </label>
+      <div id="customRow" hidden>
+        <label>W <input type="number" id="cw" min="10" max="100" step="0.5" value="35"> mm</label>
+        <label>H <input type="number" id="ch" min="10" max="100" step="0.5" value="45"> mm</label>
+      </div>
+      <div class="cropwrap"><canvas id="preview" width="350" height="450"></canvas></div>
+      <p class="hint" data-i18n="cropHint">Drag to move, wheel or slider to zoom. Put the top of the head on the top line and the chin on the lower line.</p>
+      <label><span data-i18n="zoom">Zoom</span>
+        <input type="range" id="zoom" min="0" max="100" value="0"></label>
+      <label><span data-i18n="brightness">Brightness</span>
+        <input type="range" id="bright" min="70" max="130" value="100"></label>
+      <label><span data-i18n="contrast">Contrast</span>
+        <input type="range" id="contrast" min="70" max="130" value="100"></label>
+      <label class="chk"><input type="checkbox" id="guides" checked> <span data-i18n="showGuides">Show guides</span></label>
+    </section>
+
+    <section class="panel">
+      <h2 data-i18n="step2">2. Print sheet</h2>
+      <label><span data-i18n="paper">Paper</span>
+        <select id="paper"><option value="L">L (127×89 mm)</option><option value="A4">A4 (210×297 mm)</option></select>
+      </label>
+      <label class="chk"><input type="checkbox" id="cutlines" checked> <span data-i18n="cutlines">Cut marks</span></label>
+      <p id="sheetInfo" class="hint"></p>
+      <canvas id="sheet"></canvas>
+      <div class="actions">
+        <button type="button" id="save" data-i18n="save">Save PNG (300 dpi)</button>
+        <button type="button" id="print" data-i18n="print">Print</button>
+      </div>
+      <p class="hint" data-i18n="printHint">Print at 100% / actual size (no "fit to page").</p>
+    </section>
+  </div>
+</main>
+<img id="printImg" alt="">
+<footer><small data-i18n="footer">No ads, no tracking, no network requests.</small></footer>
+<script type="module" src="js/app.js"></script>
+</body>
+</html>
